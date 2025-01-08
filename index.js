@@ -9,7 +9,7 @@ require('dotenv').config(); // Assurez-vous que cette ligne est présente
 const connectDB = require('./db');
 
 // Import des modèles
-const Message = require('./models/Message');
+const Message = require('./models/message');
 
 // Initialisation de l'application
 const app = express();
