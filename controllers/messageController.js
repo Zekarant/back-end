@@ -1,4 +1,4 @@
-const Message = require('../models/message');
+const Message = require('../models/Message');
 
 const addMessage = async (req, res) => {
     const { leagueId, user, text } = req.body;
