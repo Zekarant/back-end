@@ -1,6 +1,6 @@
 const Course = require('../models/course');
 const User = require('../models/user');
-const Pronostic = require('../models/Pronostic');
+const Pronostic = require('../models/pronostic');
 
 const getCourses = async (req, res) => {
     try {
