@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "https://coruscating-taiyaki-a097d7.netlify.app/", // Remplacez par l'URL de votre frontend
+        origin: "https://coruscating-taiyaki-a097d7.netlify.app", // Remplacez par l'URL de votre frontend
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true
     }
@@ -24,7 +24,7 @@ const io = socketIo(server, {
 
 // Middlewares globaux
 app.use(cors({
-    origin: "https://coruscating-taiyaki-a097d7.netlify.app/", // Remplacez par l'URL de votre frontend
+    origin: "https://coruscating-taiyaki-a097d7.netlify.app", // Remplacez par l'URL de votre frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
 }));
