@@ -1,4 +1,4 @@
-const Pronostic = require('../models/Pronostic');
+const Pronostic = require('../models/pronostic');
 const Course = require('../models/course');
 
 const addPronostic = async (req, res) => {
