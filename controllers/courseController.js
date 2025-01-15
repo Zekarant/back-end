@@ -12,13 +12,13 @@ const getCourses = async (req, res) => {
 };
 
 const addCourse = async (req, res) => {
-    const { name, date, type, category, stages, predictionEndTime } = req.body;
+    const { name, date, type, category, stages, generalPredictionEndTime } = req.body;
 
     if (req.user.role !== 'Admin') {
         return res.status(403).json({ message: 'Access denied' });
     }
 
-    const course = new Course({ name, date, type, category, stages, predictionEndTime });
+    const course = new Course({ name, date, type, category, stages, generalPredictionEndTime });
 
     try {
         const newCourse = await course.save();
@@ -30,7 +30,7 @@ const addCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
     const { id } = req.params;
-    const { name, date, type, category, stages, predictionEndTime, results, isCompleted } = req.body;
+    const { name, date, type, category, stages, generalPredictionEndTime, results, isCompleted } = req.body;
 
     if (req.user.role !== 'Admin') {
         return res.status(403).json({ message: 'Access denied' });
@@ -47,7 +47,7 @@ const updateCourse = async (req, res) => {
         course.type = type || course.type;
         course.category = category || course.category;
         course.stages = stages || course.stages;
-        course.predictionEndTime = predictionEndTime || course.predictionEndTime;
+        course.generalPredictionEndTime = generalPredictionEndTime || course.generalPredictionEndTime;
         course.results = results || course.results;
         course.isCompleted = isCompleted !== undefined ? isCompleted : course.isCompleted;
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const stageSchema = new mongoose.Schema({
     stageNumber: { type: Number, required: true },
     date: { type: Date, required: true },
+    predictionEndTime: { type: Date, required: true },
     results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cyclist' }]
 });
 
