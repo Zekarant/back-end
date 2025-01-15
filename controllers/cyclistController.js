@@ -46,16 +46,15 @@ const updateCyclist = async (req, res) => {
 };
 
 const deleteCyclist = async (req, res) => {
-    const { id } = req.params;
+    const { cyclistId } = req.params;
 
     try {
-        const cyclist = await Cyclist.findById(id);
+        const cyclist = await Cyclist.findByIdAndDelete(cyclistId);
         if (!cyclist) {
             return res.status(404).json({ message: 'Cyclist not found' });
         }
 
-        await cyclist.findByIdAndDelete(id);
-        res.json({ message: 'Cyclist deleted' });
+        res.status(200).json({ message: 'Cyclist deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
