@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const cyclistSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     team: { type: String, required: true },
-    nationality: { type: String, required: true },
-    age: { type: Number, required: true },
+    nationality: { type: String, required: false },
+    age: { type: Number, required: false },
     wins: { type: Number, required: true }
 });
 

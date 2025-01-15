@@ -2,7 +2,7 @@ const Cyclist = require('../models/cyclist');
 
 const getCyclists = async (req, res) => {
     try {
-        const cyclists = await Cyclist.find().sort({ name: 1 });
+        const cyclists = await Cyclist.find().sort({ lastName: 1 });
         res.json(cyclists);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -10,8 +10,8 @@ const getCyclists = async (req, res) => {
 };
 
 const addCyclist = async (req, res) => {
-    const { name, team } = req.body;
-    const cyclist = new Cyclist({ name, team });
+    const { firstName, lastName, team, nationality, age, wins } = req.body;
+    const cyclist = new Cyclist({ firstName, lastName, team, nationality, age, wins });
 
     try {
         const newCyclist = await cyclist.save();
@@ -21,4 +21,44 @@ const addCyclist = async (req, res) => {
     }
 };
 
-module.exports = { getCyclists, addCyclist };
+const updateCyclist = async (req, res) => {
+    const { id } = req.params;
+    const { firstName, lastName, team, nationality, age, wins } = req.body;
+
+    try {
+        const cyclist = await Cyclist.findById(id);
+        if (!cyclist) {
+            return res.status(404).json({ message: 'Cyclist not found' });
+        }
+
+        cyclist.firstName = firstName || cyclist.firstName;
+        cyclist.lastName = lastName || cyclist.lastName;
+        cyclist.team = team || cyclist.team;
+        cyclist.nationality = nationality || cyclist.nationality;
+        cyclist.age = age || cyclist.age;
+        cyclist.wins = wins || cyclist.wins;
+
+        const updatedCyclist = await cyclist.save();
+        res.json(updatedCyclist);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+const deleteCyclist = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const cyclist = await Cyclist.findById(id);
+        if (!cyclist) {
+            return res.status(404).json({ message: 'Cyclist not found' });
+        }
+
+        await cyclist.remove();
+        res.json({ message: 'Cyclist deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { getCyclists, addCyclist, updateCyclist, deleteCyclist };
