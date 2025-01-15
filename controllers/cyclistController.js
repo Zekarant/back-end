@@ -46,10 +46,10 @@ const updateCyclist = async (req, res) => {
 };
 
 const deleteCyclist = async (req, res) => {
-    const { cyclistId } = req.params;
+    const { id } = req.params;
 
     try {
-        const cyclist = await Cyclist.findByIdAndDelete(cyclistId);
+        const cyclist = await Cyclist.findByIdAndDelete(id);
         if (!cyclist) {
             return res.status(404).json({ message: 'Cyclist not found' });
         }
