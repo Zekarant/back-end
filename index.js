@@ -42,6 +42,7 @@ const rankingRoutes = require('./routes/ranking');
 const leagueRoutes = require('./routes/leagues');
 const messageRoutes = require('./routes/messages');
 const adminRoutes = require('./routes/admin');
+const teamRoutes = require('./routes/teams');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
@@ -51,6 +52,7 @@ app.use('/api/ranking', rankingRoutes);
 app.use('/api/leagues', leagueRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/teams', teamRoutes);
 
 // Socket.io configuration
 io.on('connection', (socket) => {
