@@ -13,6 +13,7 @@ const courseSchema = new mongoose.Schema({
     type: { type: String, enum: ['Classic', 'Tour'], required: true },
     category: { type: String, enum: ['Classique 1.1', 'Classique 1.WT', 'Monument', 'Tour 2.1', 'Tour 2.WT', 'Grand Tour'], required: true },
     stages: [stageSchema],
+    participants: [{ type: String, required: true }],
     results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cyclist' }],
     isCompleted: { type: Boolean, default: false }
 });

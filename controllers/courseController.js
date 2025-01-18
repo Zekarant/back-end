@@ -12,13 +12,8 @@ const getCourses = async (req, res) => {
 };
 
 const addCourse = async (req, res) => {
-    const { name, date, type, category, stages, generalPredictionEndTime } = req.body;
-
-    if (req.user.role !== 'Admin') {
-        return res.status(403).json({ message: 'Access denied' });
-    }
-
-    const course = new Course({ name, date, type, category, stages, generalPredictionEndTime });
+    const { name, date, type, category, participants } = req.body;
+    const course = new Course({ name, date, type, category, participants });
 
     try {
         const newCourse = await course.save();
@@ -30,11 +25,7 @@ const addCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
     const { id } = req.params;
-    const { name, date, type, category, stages, generalPredictionEndTime, results, isCompleted } = req.body;
-
-    if (req.user.role !== 'Admin') {
-        return res.status(403).json({ message: 'Access denied' });
-    }
+    const { name, date, type, category, participants } = req.body;
 
     try {
         const course = await Course.findById(id);
@@ -46,14 +37,7 @@ const updateCourse = async (req, res) => {
         course.date = date || course.date;
         course.type = type || course.type;
         course.category = category || course.category;
-        course.stages = stages || course.stages;
-        course.generalPredictionEndTime = generalPredictionEndTime || course.generalPredictionEndTime;
-        course.results = results || course.results;
-        course.isCompleted = isCompleted !== undefined ? isCompleted : course.isCompleted;
-
-        if (course.isCompleted && results) {
-            await calculatePoints(course);
-        }
+        course.participants = participants || course.participants;
 
         const updatedCourse = await course.save();
         res.json(updatedCourse);
@@ -64,10 +48,6 @@ const updateCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
     const { id } = req.params;
-
-    if (req.user.role !== 'Admin') {
-        return res.status(403).json({ message: 'Access denied' });
-    }
 
     try {
         const course = await Course.findById(id);
