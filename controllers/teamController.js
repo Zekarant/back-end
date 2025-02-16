@@ -23,11 +23,10 @@ const addTeam = async (req, res) => {
 
 const deleteTeam = async (req, res) => {
     try {
-        const team = await Team.findById(req.params.id);
+        const team = await Team.findByIdAndDelete(req.params.id);
         if (!team) {
             return res.status(404).json({ message: 'Team not found' });
         }
-        await team.remove();
         res.json({ message: 'Team deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
